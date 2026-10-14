@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="shopify-api-key" content="{{ shopify_client_id }}">
+  <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+  <title>Kiểm tra kết nối Loyalty</title>
+</head>
+<body>
+  <h1>Kiểm tra kết nối Loyalty</h1>
+  <pre id="result" role="status">Đang kết nối Shopify…</pre>
+  <script>
+    (async () => {
+      const result = document.getElementById('result');
+      if (window.top === window.self || !window.shopify || typeof window.shopify.idToken !== 'function') {
+        result.textContent = 'Hãy mở ứng dụng từ Shopify Admin để kiểm tra phiên đăng nhập.';
+        return;
+      }
+      try {
+        const token = await window.shopify.idToken();
+        const response = await fetch('/api/admin/me', {
+          headers: {Authorization: `Bearer ${token}`, Accept: 'application/json'},
+          credentials: 'omit', cache: 'no-store'
+        });
+        if (!response.ok) {
+          result.textContent = 'Không xác thực được phiên Shopify. Hãy mở lại ứng dụng từ Shopify Admin.';
+          return;
+        }
+        const data = await response.json();
+        result.textContent = JSON.stringify({
+          shop: data.shop, currency: data.currency,
+          program_version: data.program_config ? data.program_config.version : null
+        }, null, 2);
+      } catch (_) {
+        result.textContent = 'Chưa kết nối được với Shopify. Hãy kiểm tra kết nối và mở lại ứng dụng.';
+      }
+    })();
+  </script>
+</body>
+</html>

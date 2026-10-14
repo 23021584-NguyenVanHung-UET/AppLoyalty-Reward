@@ -1,0 +1,15 @@
+{{ shop_name }}
+{% if kind == 'WELCOME_POINTS' %}Welcome! You received {{ points }} welcome points.
+{% elif kind == 'BIRTHDAY_POINTS' %}Happy birthday! You received {{ points }} birthday points.
+{% elif kind == 'REFERRAL_REWARDED' %}Your referral qualified. You received {{ points }} referral points.
+{% endif %}
+{% if kind == 'POINTS_EARNED' %}You earned {{ points }} points. Available from: {{ available_at|date:'Y-m-d H:i' }} UTC.
+{% elif kind == 'POINTS_AVAILABLE' %}{{ points }} points are now available.
+{% elif kind == 'REWARD_CODE_ISSUED' %}Reward: {{ reward }}. Your code: {{ code }}.
+{% elif kind == 'TIER_GRACE_REMINDER' %}Your {{ tier }} tier is in its grace period. Earn {{ points }} more qualifying points before {{ grace_deadline|date:'Y-m-d H:i' }} UTC to keep your tier.
+{% elif kind == 'TIER_UPGRADED' %}Your new membership tier: {{ tier }}.
+{% elif kind == 'POINTS_EXPIRING' %}{{ points }} points expire soon:
+{% for lot in lots %}{{ lot.points_remaining }} points · {{ lot.expires_at|date:'Y-m-d H:i' }} UTC
+{% endfor %}{% endif %}
+{% if expires_at %}Expires: {{ expires_at|date:'Y-m-d H:i' }} UTC.{% endif %}
+{% if unsubscribe_url %}Unsubscribe from loyalty reminders: {{ unsubscribe_url }}{% endif %}

@@ -1,0 +1,15 @@
+{{ shop_name }}
+{% if kind == 'WELCOME_POINTS' %}Chào mừng bạn! Bạn nhận được {{ points }} điểm chào mừng.
+{% elif kind == 'BIRTHDAY_POINTS' %}Chúc mừng sinh nhật! Bạn nhận được {{ points }} điểm sinh nhật.
+{% elif kind == 'REFERRAL_REWARDED' %}Lượt giới thiệu đủ điều kiện. Bạn nhận được {{ points }} điểm giới thiệu.
+{% endif %}
+{% if kind == 'POINTS_EARNED' %}Bạn nhận được {{ points }} điểm. Khả dụng từ: {{ available_at|date:'Y-m-d H:i' }} UTC.
+{% elif kind == 'POINTS_AVAILABLE' %}{{ points }} điểm đã khả dụng.
+{% elif kind == 'REWARD_CODE_ISSUED' %}Ưu đãi: {{ reward }}. Mã của bạn: {{ code }}.
+{% elif kind == 'TIER_GRACE_REMINDER' %}Hạng {{ tier }} của bạn đang trong thời gian ân hạn. Hãy tích lũy thêm {{ points }} điểm xét hạng trước {{ grace_deadline|date:'Y-m-d H:i' }} UTC để duy trì hạng.
+{% elif kind == 'TIER_UPGRADED' %}Hạng thành viên mới của bạn: {{ tier }}.
+{% elif kind == 'POINTS_EXPIRING' %}Bạn có {{ points }} điểm sắp hết hạn:
+{% for lot in lots %}{{ lot.points_remaining }} điểm · {{ lot.expires_at|date:'Y-m-d H:i' }} UTC
+{% endfor %}{% endif %}
+{% if expires_at %}Hết hạn: {{ expires_at|date:'Y-m-d H:i' }} UTC.{% endif %}
+{% if unsubscribe_url %}Ngừng nhận email nhắc nhở: {{ unsubscribe_url }}{% endif %}

@@ -1,0 +1,6 @@
+{
+  "name": "loyalty-account",
+  "private": true,
+  "type": "module",
+  "dependencies": {"@shopify/ui-extensions": "2026.7.0", "preact": "10.29.8", "@preact/signals": "^2.0.0"}
+}

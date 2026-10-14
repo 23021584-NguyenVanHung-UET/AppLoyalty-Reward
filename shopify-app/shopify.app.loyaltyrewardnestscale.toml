@@ -1,0 +1,30 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "ae0aac52917a4fc8109b417db5b1346a"
+application_url = "https://loyalty-dev.hungvandomain.dpdns.org/app/"
+embedded = true
+name = "loyaltyrewardnestscale"
+
+[webhooks]
+api_version = "2026-10"
+
+[[webhooks.subscriptions]]
+compliance_topics = ["customers/data_request", "customers/redact", "shop/redact"]
+uri = "https://loyalty-dev.hungvandomain.dpdns.org/webhooks/shopify/"
+
+[app_proxy]
+url = "https://loyalty-dev.hungvandomain.dpdns.org/proxy"
+subpath = "loyalty"
+prefix = "apps"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_customers,read_orders,read_products,write_discounts"
+optional_scopes = [ ]
+use_legacy_install_flow = false
+
+[auth]
+redirect_urls = [ "https://loyalty-dev.hungvandomain.dpdns.org/app/" ]
+
+[build]
+automatically_update_urls_on_dev = false

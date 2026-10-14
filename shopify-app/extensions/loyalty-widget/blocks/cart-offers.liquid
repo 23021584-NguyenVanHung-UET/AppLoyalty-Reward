@@ -1,0 +1,51 @@
+{% assign root_path = routes.root_url | append: '/' | replace: '//', '/' %}
+<lp-cart-offers data-proxy="{{ root_path | append: 'apps/loyalty' | escape }}" data-css="{{ 'loyalty-cart.css' | asset_url | escape }}" {{ block.shopify_attributes }}>
+  <script type="application/json">
+    {
+      "locale": {{ request.locale.iso_code | json }},
+      "designMode": {{ request.design_mode | json }},
+      {% if request.design_mode %}"previewData": {% render 'loyalty-preview' %},{% endif %}
+      "loggedIn": {% if customer %}true{% else %}false{% endif %},
+      "rootUrl": {{ root_path | json }},
+      "loginUrl": {{ routes.account_login_url | json }},
+      "appearance": {
+        "heading": {{ block.settings.heading | json | replace: '<', '\u003c' }},
+        "layout": {{ block.settings.layout | json }},
+        "accent": {{ block.settings.accent | json }},
+        "customColors": {{ block.settings.custom_colors | json }},
+        "background": {{ block.settings.background | json }},
+        "foreground": {{ block.settings.foreground | json }},
+        "limit": {{ block.settings.limit | json }},
+        "radius": {{ block.settings.radius | json }},
+        "spacing": {{ block.settings.spacing | json }},
+        "hideEmpty": {{ block.settings.hide_empty | json }},
+        "showCheckout": {{ block.settings.show_checkout | json }}
+      },
+      "strings": {% render 'loyalty-strings' %}
+    }
+  </script>
+  <noscript><p>{{ 'lp.cart_noscript' | t | escape }}</p></noscript>
+</lp-cart-offers>
+<script type="module" src="{{ 'loyalty-cart.js' | asset_url }}"></script>
+{% schema %}
+{
+  "name": "t:settings.cart_offers",
+  "target": "section",
+  "enabled_on": { "templates": ["cart"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:settings.estimate_heading", "info": "t:settings.label_help" },
+    { "type": "select", "id": "layout", "label": "t:settings.cart_layout", "default": "list", "options": [
+      { "value": "list", "label": "t:settings.cart_list" }, { "value": "grid", "label": "t:settings.cart_grid" }
+    ] },
+    { "type": "color", "id": "accent", "label": "t:settings.estimate_accent", "default": "#5b37d4" },
+    { "type": "checkbox", "id": "custom_colors", "label": "t:settings.estimate_custom_colors", "default": false },
+    { "type": "color", "id": "background", "label": "t:settings.estimate_background", "default": "#ffffff" },
+    { "type": "color", "id": "foreground", "label": "t:settings.estimate_foreground", "default": "#242033" },
+    { "type": "range", "id": "limit", "label": "t:settings.cart_limit", "min": 1, "max": 6, "step": 1, "default": 3 },
+    { "type": "range", "id": "radius", "label": "t:settings.radius", "min": 0, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "spacing", "label": "t:settings.cart_spacing", "min": 0, "max": 32, "step": 4, "unit": "px", "default": 16 },
+    { "type": "checkbox", "id": "hide_empty", "label": "t:settings.cart_hide_empty", "default": false },
+    { "type": "checkbox", "id": "show_checkout", "label": "t:settings.cart_show_checkout", "default": true }
+  ]
+}
+{% endschema %}

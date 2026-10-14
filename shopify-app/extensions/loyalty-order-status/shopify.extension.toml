@@ -1,0 +1,22 @@
+api_version = "2026-07"
+
+[[extensions]]
+name = "Loyalty offers"
+handle = "loyalty-order-status"
+uid = "f21927b0-bfae-6471-9064-c15a6ea4ec0e6bc2cda9"
+type = "ui_extension"
+
+[[extensions.targeting]]
+target = "customer-account.order-status.block.render"
+module = "./src/OrderStatus.tsx"
+
+[[extensions.targeting]]
+target = "purchase.thank-you.block.render"
+module = "./src/ThankYou.tsx"
+
+[[extensions.targeting]]
+target = "purchase.checkout.block.render"
+module = "./src/CheckoutOffers.tsx"
+
+[extensions.capabilities]
+network_access = true

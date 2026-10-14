@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="shopify-api-key" content="{{ shopify_client_id }}">
+  <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
+  <script src="https://cdn.shopify.com/shopifycloud/polaris-1.1.js"></script>
+  {% for href in styles %}<link rel="stylesheet" href="{{ href }}">{% endfor %}
+  {% for href in preloads %}<link rel="modulepreload" href="{{ href }}">{% endfor %}
+  <title>Loyalty &amp; Rewards</title>
+</head>
+<body>
+  {% if build_ready %}
+    <div id="app"></div>
+    {% for src in scripts %}<script type="module" src="{{ src }}"></script>{% endfor %}
+  {% else %}
+    <main><h1>Loyalty &amp; Rewards</h1><p>The admin interface has not been built yet. Run npm ci and npm run build in frontend, then reload this page.</p><a href="/app/diagnostic/">Open connection diagnostic</a></main>
+  {% endif %}
+  <noscript>Enable JavaScript to use Loyalty &amp; Rewards.</noscript>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "loyalty-storefront-extension",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "extensions/loyalty-account",
+    "extensions/loyalty-order-status"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "check": "node tools/check.mjs",
+    "typecheck": "tsc --project tsconfig.customer.json",
+    "build:customer": "node tools/build-customer.mjs",
+    "check:customer": "node tools/check-customer.mjs",
+    "preview": "node ../tools/widget-preview/server.mjs",
+    "preview:check": "node ../tools/widget-preview/smoke.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "jsdom": "26.1.0",
+    "typescript": "^5.9.3",
+    "vitest": "5.0.4"
+  }
+}

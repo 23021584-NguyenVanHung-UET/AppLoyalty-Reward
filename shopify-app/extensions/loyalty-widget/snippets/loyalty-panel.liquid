@@ -1,0 +1,36 @@
+{% doc %}
+  @description Shared lazy panel for the inline app block and floating embed.
+  @param {block} block - Theme app block settings.
+  @param {string} mode - Either floating or inline.
+{% enddoc %}
+{% assign root_path = routes.root_url | append: '/' | replace: '//', '/' %}
+<lp-loyalty
+  data-mode="{{ mode | escape }}"
+  data-proxy="{{ root_path | append: 'apps/loyalty' | escape }}"
+  data-css="{{ 'loyalty-widget.css' | asset_url | escape }}"
+  {{ block.shopify_attributes }}
+>
+  <script type="application/json">
+    {
+      "mode": {{ mode | json }},
+      "locale": {{ request.locale.iso_code | json }},
+      "designMode": {{ request.design_mode | json }},
+      {% if request.design_mode %}"previewData": {% render 'loyalty-preview' %},{% endif %}
+      "loggedIn": {% if customer %}true{% else %}false{% endif %},
+      "rootUrl": {{ root_path | json }},
+      "loginUrl": {{ routes.account_login_url | json }},
+      "registerUrl": {{ routes.account_register_url | json }},
+      "label": {{ block.settings.button_label | json | replace: '<', '\u003c' }},
+      "showPoints": {{ block.settings.show_points | json }},
+      "position": {{ block.settings.position | json }},
+      "offset": {{ block.settings.offset | json }},
+      "radius": {{ block.settings.radius | json }},
+      "primary": {{ block.settings.primary | json }},
+      "textColor": {{ block.settings.text_color | json }},
+      "zIndex": {{ block.settings.z_index | json }},
+      "tabs": {"rewards": {{ block.settings.show_rewards | json }}, "codes": {{ block.settings.show_codes | json }}, "history": {{ block.settings.show_history | json }}},
+      "strings": {% render 'loyalty-strings' %}
+    }
+  </script>
+</lp-loyalty>
+<script type="module" src="{{ 'loyalty-widget.js' | asset_url }}"></script>

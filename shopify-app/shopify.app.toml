@@ -1,0 +1,29 @@
+# PLACEHOLDER ONLY — NEVER deploy this file as-is.
+# Run `shopify app config link` and select your EXISTING app to replace this file.
+# Historical dashboard values below must be compared with the freshly linked config.
+# No client secret or access token belongs here. Preserve ALL linked webhook entries.
+client_id = "REPLACE_BY_SHOPIFY_APP_CONFIG_LINK"
+name = "loyaltyrewardnestscale"
+application_url = "https://loyalty-dev.hungvandomain.dpdns.org/app/"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = false
+
+[access_scopes]
+# Verify the linked file, including write_app_proxy if already granted/required.
+scopes = "read_customers,read_orders,read_products,write_discounts"
+use_legacy_install_flow = false
+
+[auth]
+# STEP 8 has no OAuth callback; preserve the actual allowlist from config link.
+redirect_urls = ["https://loyalty-dev.hungvandomain.dpdns.org/app/"]
+
+[webhooks]
+api_version = "2026-10"
+# Existing webhook subscriptions are intentionally not guessed here.
+
+[app_proxy]
+url = "https://loyalty-dev.hungvandomain.dpdns.org/proxy/"
+subpath = "loyalty"
+prefix = "apps"

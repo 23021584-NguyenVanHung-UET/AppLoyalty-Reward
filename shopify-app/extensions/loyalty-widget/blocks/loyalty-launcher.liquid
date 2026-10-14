@@ -1,0 +1,96 @@
+{% render 'loyalty-panel', block: block, mode: 'floating' %}
+{% schema %}
+{
+  "name": "t:settings.launcher",
+  "target": "body",
+  "settings": [
+    {
+      "type": "select",
+      "id": "position",
+      "label": "t:settings.position",
+      "default": "bottom-right",
+      "options": [
+        {
+          "value": "bottom-right",
+          "label": "t:settings.right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "t:settings.left"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "offset",
+      "label": "t:settings.offset",
+      "min": 8,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:settings.label",
+      "info": "t:settings.label_help"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_points",
+      "label": "t:settings.show_points",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "primary",
+      "label": "t:settings.primary",
+      "default": "#5b37d4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:settings.text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "t:settings.radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rewards",
+      "label": "t:settings.show_rewards",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_codes",
+      "label": "t:settings.show_codes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_history",
+      "label": "t:settings.show_history",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "z_index",
+      "label": "t:settings.z_index",
+      "min": 100,
+      "max": 9900,
+      "step": 100,
+      "default": 1000
+    }
+  ]
+}
+{% endschema %}

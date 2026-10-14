@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+<body style="margin:0;background:#f4f5f7;font-family:Arial,sans-serif;color:#202223"><div style="max-width:560px;margin:24px auto;padding:24px;background:#ffffff;border-radius:12px">
+<h1 style="font-size:22px">{{ shop_name }}</h1>
+{% if kind == 'WELCOME_POINTS' %}<p>Welcome! You received <strong>{{ points }} welcome points</strong>.</p>
+{% elif kind == 'BIRTHDAY_POINTS' %}<p>Happy birthday! You received <strong>{{ points }} birthday points</strong>.</p>
+{% elif kind == 'REFERRAL_REWARDED' %}<p>Your referral qualified. You received <strong>{{ points }} referral points</strong>.</p>{% endif %}
+{% if kind == 'POINTS_EARNED' %}<p>You earned <strong>{{ points }} points</strong>.</p><p>Available from {{ available_at|date:'Y-m-d H:i' }} UTC.</p>
+{% elif kind == 'POINTS_AVAILABLE' %}<p><strong>{{ points }} points</strong> are now available.</p>
+{% elif kind == 'REWARD_CODE_ISSUED' %}<p>{{ reward }}</p><p>Your code: <strong>{{ code }}</strong></p>
+{% elif kind == 'TIER_GRACE_REMINDER' %}<p>Your <strong>{{ tier }}</strong> tier is in its grace period.</p><p>Earn <strong>{{ points }} more qualifying points</strong> before <strong>{{ grace_deadline|date:'Y-m-d H:i' }} UTC</strong> to keep your tier.</p>
+{% elif kind == 'TIER_UPGRADED' %}<p>Your new membership tier: <strong>{{ tier }}</strong>.</p>
+{% elif kind == 'POINTS_EXPIRING' %}<p><strong>{{ points }} points</strong> expire soon:</p><ul>{% for lot in lots %}<li>{{ lot.points_remaining }} points · {{ lot.expires_at|date:'Y-m-d H:i' }} UTC</li>{% endfor %}</ul>{% endif %}
+{% if expires_at %}<p>Expires {{ expires_at|date:'Y-m-d H:i' }} UTC.</p>{% endif %}
+{% if unsubscribe_url %}<p style="font-size:12px"><a href="{{ unsubscribe_url }}">Unsubscribe from loyalty reminders</a></p>{% endif %}
+</div></body></html>
